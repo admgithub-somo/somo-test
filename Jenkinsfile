@@ -5,7 +5,10 @@ def registryIp
 pipeline {
     
     agent {
-        docker { image 'jenkinsci/slave:latest' }
+        dockerfile {
+            filename 'Dockerfile.jenkinsAgent'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+            }
         }
     options {
         skipDefaultCheckout true
