@@ -32,10 +32,9 @@ pipeline {
                     script {
                       sh "docker build --no-cache . -t hammer2900/somo2900:${revision} --build-arg REVISION=${revision}"
                       sh "docker images"
-                    //   docker.withRegistry("") {
-                    //   sh "docker push ${registryIp}:${revision}"
-                    //   sh "echo registryIp=818353068367.dkr.ecr.eu-central-1.amazonaws.com/tony > build.properties"  //HERE SHOULD BE INFO TO PUSH DOCKERIMAGE
-                    //   sh "echo buildNumber=${revision} >> build.properties" 
+                      docker.withRegistry("https://cloud.docker.com/repository/registry-1.docker.io/admgolovin/somo", "admgolovin_dockerhub" ) {
+                          sh "docker push ${registryIp}:${revision}"
+                          sh "echo buildNumber=${revision} >> build.properties" 
                     }
                 }
             }
